@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ai-agent-final-project
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: AGENT_API_KEY
+        generateValue: true
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: redis
+          property: connectionString
+
+databases:
+  - name: redis
+    plan: free
